@@ -67,10 +67,17 @@ which call the Home Assistant REST API from `src/lib/ha.server.ts`:
 
 - `getHome` reads `GET /api/states` and renders a template through
   `POST /api/template` to get areas, floors and the time zone, which the REST
-  API does not expose directly. The root route loads it and refreshes it every
-  five seconds.
+  API does not expose directly. Areas are cached for a minute, and only the
+  attributes the pages use are sent to the browser.
 - `callService` posts to `/api/services/<domain>/<service>` for the domains the
   dashboard controls (lights, covers, locks, climate, scenes, alarm panel).
+
+Updates are pushed. `/api/events` relays Home Assistant's event stream
+(`GET /api/stream`) as a "changed" notification whenever a displayed entity
+changes, and the browser reloads the snapshot in response. Each open dashboard
+holds one such connection while its tab is visible, so the app needs a
+long-running server (`pnpm start`); it is not a good fit for serverless hosts
+that bill for open connections.
 
 Nothing is configured per entity. Rooms come from Home Assistant areas, and
 entities are picked by domain and device class, so assign entities to areas and
