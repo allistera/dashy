@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { formatDate, formatTime } from "../lib/format";
-import { useHome } from "../lib/hooks";
+import { useHome, useNow } from "../lib/hooks";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function PageHeader() {
-	const { now, timeZone } = useHome();
+	const { timeZone } = useHome();
+	const now = useNow();
 
 	return (
 		<header className="header">

@@ -25,7 +25,7 @@ import {
 	ofDomain,
 	openEntrances,
 } from "../lib/home";
-import { useHome, useService } from "../lib/hooks";
+import { useHome, useNow, useService } from "../lib/hooks";
 
 const UPCOMING_LIMIT = 3;
 
@@ -95,7 +95,8 @@ function Summary({ home }: { home: Home }) {
 function QuietPage() {
 	const home = useHome();
 	const callService = useService();
-	const { entities, now, timeZone } = home;
+	const { entities, timeZone } = home;
+	const now = useNow();
 	const open = openEntrances(entities);
 	const batteries = lowBatteries(entities);
 	const upcoming = upcomingEvents(entities);
