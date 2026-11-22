@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Icon } from "../components/Icon";
+import { Lead } from "../components/Lead";
 import { Row } from "../components/Row";
 import { ThemeToggle } from "../components/ThemeToggle";
 import {
@@ -77,7 +78,7 @@ function Summary({ home }: { home: Home }) {
 	];
 
 	return (
-		<p className="lead">
+		<Lead page="home">
 			{open ? "Mostly quiet. " : "All quiet. "}
 			{capitalize(formatList(facts))}
 			{open ? (
@@ -87,7 +88,7 @@ function Summary({ home }: { home: Home }) {
 			) : (
 				"."
 			)}
-		</p>
+		</Lead>
 	);
 }
 

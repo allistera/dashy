@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Lead } from "../components/Lead";
 import { PageHeader } from "../components/PageHeader";
 import { Row } from "../components/Row";
 import {
@@ -83,14 +84,14 @@ function SecurityPage() {
 				<div className="split-main">
 					<h1 className="eyebrow">Doors and windows</h1>
 					<div className="display">{open.length} open</div>
-					<p className="lead">
+					<Lead page="security">
 						{firstOpen && (
 							<span className="alert">
 								{capitalize(openSince(firstOpen, timeZone))}.{" "}
 							</span>
 						)}
 						{facts.length > 0 && `${capitalize(formatList(facts))}.`}
-					</p>
+					</Lead>
 					{firstOpen && isGate(firstOpen) && (
 						<button
 							type="button"
