@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Icon } from "../components/Icon";
+import { Lead } from "../components/Lead";
 import { PageHeader } from "../components/PageHeader";
 import { Switch } from "../components/Switch";
 import {
@@ -119,7 +120,7 @@ function RoomsPage() {
 			<div className="bar spread">
 				<div className="section">
 					<h1 className="eyebrow">Rooms</h1>
-					<p className="lead">
+					<Lead page="rooms">
 						{litRooms === 0
 							? "The whole house is dark"
 							: `${plural(litRooms, "room")} ${isOrAre(litRooms)} lit`}
@@ -131,7 +132,7 @@ function RoomsPage() {
 						) : (
 							"."
 						)}
-					</p>
+					</Lead>
 				</div>
 				{floors.length > 0 && (
 					<div className="bar">

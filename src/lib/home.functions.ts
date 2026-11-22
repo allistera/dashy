@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getStates, postService, renderTemplate } from "./ha.server";
 import { type Area, domainOf, type Entity, type Home } from "./home";
+import { summariesFor } from "./summaries.server";
 
 /** The REST API has no area endpoint, so areas are read through a template. */
 const REGISTRY_TEMPLATE = `
@@ -74,7 +75,7 @@ export const getHome = createServerFn().handler(async (): Promise<Home> => {
 	}));
 	const usedAreas = new Set(entities.map((entity) => entity.area_id));
 
-	return {
+	const home: Home = {
 		now: new Date().toISOString(),
 		timeZone: registry.timeZone,
 		areas: registry.areas
@@ -82,6 +83,7 @@ export const getHome = createServerFn().handler(async (): Promise<Home> => {
 			.map(({ id, name, floor }) => ({ id, name, floor })),
 		entities,
 	};
+	return { ...home, summaries: summariesFor(home) };
 });
 
 export interface ServiceCall {

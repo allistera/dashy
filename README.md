@@ -9,6 +9,8 @@ A home automation dashboard for Home Assistant, built from the design in
   routing, server rendering and server functions.
 - [Biome](https://biomejs.dev) for linting and formatting, plus `tsc` for type
   checking.
+- [TanStack AI](https://tanstack.com/ai) with the OpenAI adapter for optional
+  model-written summaries.
 - Plain CSS with `light-dark()` colour tokens. No UI or CSS framework.
 
 ## Setup
@@ -24,6 +26,19 @@ pnpm dev
 `HA_TOKEN` is a long-lived access token, created in Home Assistant under your
 profile's Security tab. It is only read on the server and never sent to the
 browser.
+
+### AI summaries (optional)
+
+Set `OPENAI_API_KEY` in `.env` to have the headline sentence on the home, rooms,
+heating and security pages written by an OpenAI model, using
+[TanStack AI](https://tanstack.com/ai). Without a key the pages show built-in
+sentences instead.
+
+One request writes all four summaries. A new request is made only when the
+state of the house changes (lights, doors, locks, targets, whole-degree
+temperatures), at most once every 30 seconds. While a new summary is being
+written the built-in sentence is shown, so a summary never describes an earlier
+state. Entity and room names and their states are sent to OpenAI.
 
 ## Commands
 

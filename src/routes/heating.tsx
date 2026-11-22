@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Lead } from "../components/Lead";
 import { PageHeader } from "../components/PageHeader";
 import { Row } from "../components/Row";
 import { StepperButton } from "../components/Stepper";
@@ -85,11 +86,11 @@ function HeatingPage() {
 							onClick={() => stepAll(1)}
 						/>
 					</div>
-					<p className="lead">
+					<Lead page="heating">
 						{offTarget === 0
 							? "Every room is within two degrees of its target."
 							: `${capitalize(plural(offTarget, "room"))} ${isOrAre(offTarget)} more than two degrees off target.`}
-					</p>
+					</Lead>
 					<div className="bar">
 						{modes.map((mode) => (
 							<button

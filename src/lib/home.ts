@@ -25,11 +25,26 @@ export interface Area {
 	floor: string | null;
 }
 
+/** A page's headline: `text`, then `alert` (possibly empty) in the accent colour. */
+export interface Summary {
+	text: string;
+	alert: string;
+}
+
+export interface Summaries {
+	home: Summary;
+	rooms: Summary;
+	heating: Summary;
+	security: Summary;
+}
+
 export interface Home {
 	now: string;
 	timeZone: string;
 	areas: Area[];
 	entities: Entity[];
+	/** Model-written headlines; absent when none match the current state. */
+	summaries?: Summaries;
 }
 
 const LOW_BATTERY_PERCENT = 15;
