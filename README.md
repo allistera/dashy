@@ -79,6 +79,19 @@ set device classes in Home Assistant to shape the dashboard.
 The dashboard has no login of its own: anyone who can reach it can control the
 devices above. Keep it on a trusted network.
 
+## Deploying to Vercel
+
+The build detects Vercel and produces its output format without extra
+configuration. In the Vercel project:
+
+- Set `HA_URL`, `HA_TOKEN` and optionally `OPENAI_API_KEY` as environment
+  variables. `HA_URL` must be reachable from the internet; a home-network
+  address such as `homeassistant.local` will not work.
+- Turn on Deployment Protection (Vercel Authentication) for all deployments,
+  because the dashboard has no login of its own.
+
+AI summaries are cached in memory, so each server instance writes its own.
+
 ## Theme
 
 The theme follows the system setting until the toggle in the header is used;
