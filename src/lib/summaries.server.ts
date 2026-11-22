@@ -24,7 +24,7 @@ For each page write:
 - text: one or two short, calm, plain sentences (at most 30 words) describing the state relevant to that page.
 - alert: one short sentence about the single most important thing on that page that needs attention, such as an open door, a leak, an unlocked lock or a low battery. Use an empty string when nothing does. Do not repeat it in text.
 Pages: home is a whole-house overview; rooms covers which rooms are lit; heating covers targets and temperatures; security covers doors, locks, windows and leaks.
-Use only the facts given. Write times exactly as given. No greetings, questions or emojis.`;
+Use only the facts given and state them plainly, without guessing or hedging. Write times exactly as given. No greetings, questions or emojis.`;
 
 const summarySchema = z.object({ text: z.string(), alert: z.string() });
 const summariesSchema = z.object({
