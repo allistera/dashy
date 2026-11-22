@@ -86,6 +86,20 @@ set device classes in Home Assistant to shape the dashboard.
 The dashboard has no login of its own: anyone who can reach it can control the
 devices above. Keep it on a trusted network.
 
+## Running with Docker
+
+Every merge to `main` publishes an image for amd64 and arm64 to
+`ghcr.io/allistera/dashy`, tagged `latest` and with the commit hash.
+
+```sh
+docker run -d --name dashy --restart unless-stopped \
+  -p 3000:3000 --env-file .env ghcr.io/allistera/dashy:latest
+```
+
+`.env` holds `HA_URL`, `HA_TOKEN` and optionally `OPENAI_API_KEY`, as in
+`.env.example`. Inside a container `homeassistant.local` may not resolve; use
+Home Assistant's IP address in `HA_URL` if so.
+
 ## Theme
 
 The theme follows the system setting until the toggle in the header is used;
