@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HeatingRouteImport } from './routes/heating'
 import { Route as SecurityRouteImport } from './routes/security'
+import { Route as ApiEventsRouteImport } from './routes/api/events'
 import { Route as RoomsIndexRouteImport } from './routes/rooms.index'
 import { Route as RoomsAreaIdRouteImport } from './routes/rooms.$areaId'
 
@@ -30,6 +31,11 @@ const SecurityRoute = SecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiEventsRoute = ApiEventsRouteImport.update({
+  id: '/api/events',
+  path: '/api/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RoomsIndexRoute = RoomsIndexRouteImport.update({
   id: '/rooms/',
   path: '/rooms/',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/heating': typeof HeatingRoute
   '/security': typeof SecurityRoute
+  '/api/events': typeof ApiEventsRoute
   '/rooms/$areaId': typeof RoomsAreaIdRoute
   '/rooms/': typeof RoomsIndexRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/heating': typeof HeatingRoute
   '/security': typeof SecurityRoute
+  '/api/events': typeof ApiEventsRoute
   '/rooms/$areaId': typeof RoomsAreaIdRoute
   '/rooms': typeof RoomsIndexRoute
 }
@@ -60,21 +68,37 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/heating': typeof HeatingRoute
   '/security': typeof SecurityRoute
+  '/api/events': typeof ApiEventsRoute
   '/rooms/$areaId': typeof RoomsAreaIdRoute
   '/rooms/': typeof RoomsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/heating' | '/security' | '/rooms/$areaId' | '/rooms/'
+  fullPaths:
+    | '/'
+    | '/heating'
+    | '/security'
+    | '/api/events'
+    | '/rooms/$areaId'
+    | '/rooms/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/heating' | '/security' | '/rooms/$areaId' | '/rooms'
-  id: '__root__' | '/' | '/heating' | '/security' | '/rooms/$areaId' | '/rooms/'
+  to:
+    '/' | '/heating' | '/security' | '/api/events' | '/rooms/$areaId' | '/rooms'
+  id:
+    | '__root__'
+    | '/'
+    | '/heating'
+    | '/security'
+    | '/api/events'
+    | '/rooms/$areaId'
+    | '/rooms/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HeatingRoute: typeof HeatingRoute
   SecurityRoute: typeof SecurityRoute
+  ApiEventsRoute: typeof ApiEventsRoute
   RoomsAreaIdRoute: typeof RoomsAreaIdRoute
   RoomsIndexRoute: typeof RoomsIndexRoute
 }
@@ -102,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/events': {
+      id: '/api/events'
+      path: '/api/events'
+      fullPath: '/api/events'
+      preLoaderRoute: typeof ApiEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rooms/': {
       id: '/rooms/'
       path: '/rooms'
@@ -123,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HeatingRoute: HeatingRoute,
   SecurityRoute: SecurityRoute,
+  ApiEventsRoute: ApiEventsRoute,
   RoomsAreaIdRoute: RoomsAreaIdRoute,
   RoomsIndexRoute: RoomsIndexRoute,
 }

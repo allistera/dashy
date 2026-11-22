@@ -55,12 +55,16 @@ function HeatingPage() {
 	const offTarget = all.filter(isOffTarget).length;
 	const areaNames = new Map(home.areas.map((area) => [area.id, area.name]));
 
+	// Thermostats that end up on the same target are set with one call.
 	const stepAll = (direction: 1 | -1) => {
+		const entityIdsByTarget = new Map<number, string[]>();
 		for (const thermostat of all) {
-			callService("climate", "set_temperature", {
-				entity_id: thermostat.entity_id,
-				temperature: steppedTarget(thermostat, direction),
-			});
+			const target = steppedTarget(thermostat, direction);
+			const ids = entityIdsByTarget.get(target) ?? [];
+			entityIdsByTarget.set(target, [...ids, thermostat.entity_id]);
+		}
+		for (const [temperature, entity_id] of entityIdsByTarget) {
+			callService("climate", "set_temperature", { entity_id, temperature });
 		}
 	};
 

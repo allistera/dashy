@@ -34,6 +34,7 @@ const summariesSchema = z.object({
 	security: summarySchema,
 }) satisfies z.ZodType<Summaries>;
 
+const listeners = new Set<() => void>();
 let cached: { facts: string; summaries: Summaries } | undefined;
 let lastRequestAt = 0;
 let isRequesting = false;
@@ -96,11 +97,20 @@ async function request(facts: string, home: Home) {
 			outputSchema: summariesSchema,
 		});
 		cached = { facts, summaries };
+		for (const listener of listeners) listener();
 	} catch (error) {
 		console.error("Could not write summaries:", error);
 	} finally {
 		isRequesting = false;
 	}
+}
+
+/** Calls the listener whenever new summaries are written; returns a function that stops it. */
+export function onSummariesWritten(listener: () => void) {
+	listeners.add(listener);
+	return () => {
+		listeners.delete(listener);
+	};
 }
 
 /**

@@ -5,5 +5,9 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
 	// tanstackStart must come before the React plugin.
-	plugins: [tanstackStart(), nitro(), viteReact()],
+	plugins: [
+		tanstackStart(),
+		nitro({ compressPublicAssets: true }),
+		viteReact(),
+	],
 });
